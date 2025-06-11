@@ -1,0 +1,59 @@
+{% extends "home.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+<!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'user_list' %}>Aeronica</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="/homepage">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+
+<!-- Full-height flex wrapper to center content -->
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card p-4 shadow">
+          <h3 class="text-center mb-4">User Log In</h3>
+          {% if error %}
+              <div class="alert alert-danger">
+                      {{ error }}
+              </div>
+          {% endif %}
+
+          <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+
+            <div class="mb-3">
+              <label for="phone" class="form-label">Mobile Number</label>
+              <input required type="text" class="form-control" id="phone" name="phone" placeholder="Enter Mobile Number">
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-3 btn-custom">Log In</button>
+
+            <div class="text-center text-primary fw-bold mt-3">
+              <small>Need to create new user account?</small>
+              <a href="/signup" class="text-danger form-control-sm">Signup</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+

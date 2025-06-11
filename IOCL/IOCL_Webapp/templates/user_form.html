@@ -1,0 +1,64 @@
+{% extends "home.html" %}
+{% load widget_tweaks %}s
+{% load widget_tweaks %}
+
+{% block title %}
+Upload Drone Details
+{% endblock %}
+
+{% block content %}
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+  <div class="container">
+    <a class="navbar-brand " href="{% url 'user_list' %}>Aeronica</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="/homepage">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Form Card -->
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card p-4 shadow rounded-4 border-0">
+        <h2 class="text-center text-primary mb-4">
+          {% if form.instance.pk %}Edit Drone Details{% else %}Upload Drone Details{% endif %}
+        </h2>
+
+        <form method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+          {% csrf_token %}
+          {% for field in form %}
+            <div class="mb-3">
+              <label for="{{ field.id_for_label }}" class="form-label fw-semibold">{{ field.label }}</label>
+              {{ field }}
+              {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+              {% endif %}
+              {% for error in field.errors %}
+                <div class="text-danger small">{{ error }}</div>
+              {% endfor %}
+            </div>
+          {% endfor %}
+
+          <div class="d-grid mt-4 gap-2">
+            <button type="submit" class="btn btn-primary btn-lg">
+              {% if form.instance.pk %}Update{% else %}Submit{% endif %}
+            </button>
+            <a href="{% url 'user_list' %}" class="btn btn-outline-secondary">Back to Drone List</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

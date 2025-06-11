@@ -1,0 +1,64 @@
+{% extends "home.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'user_list' %}>Aeronica</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Signup Form -->
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card p-4 shadow">
+        <h3 class="text-center mb-4">User Sign Up</h3>
+
+        {% if error %}
+          <div class="alert alert-danger text-center">
+            {{ error }}
+          </div>
+        {% endif %}
+
+        <form action="/signup" method="POST" >
+          {% csrf_token %}
+
+          <div class="mb-3">
+            <label for="name" class="form-label">Full Name</label>
+            <input required type="text" class="form-control" id="name" name="name" placeholder="Enter Full Name" pattern="[A-Za-z\s]{2,50}" title="Only letters allowed" value="{{ value.name }}">
+          </div>
+
+          <div class="mb-3">
+            <label for="phone" class="form-label">Mobile Number</label>
+            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter Mobile Number" pattern="\d{10}" title="Enter a 10-digit number only" required value="{{ value.phone }}">
+          </div>
+
+          <div class="mb-3">
+            <label for="aadhaar" class="form-label">Aadhaar Number</label>
+            <input type="tel" class="form-control" id="aadhaar" name="aadhaar" placeholder="Enter Aadhaar Number" pattern="\d{12}" title="Enter a 12-digit Aadhaar number only" required value="{{ value.aadhaar }}">
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+          <div class="text-center text-primary fw-bold mt-3">
+            <small>Existing user account?</small>
+            <a href="/login" class="text-danger form-control-sm">Login</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
